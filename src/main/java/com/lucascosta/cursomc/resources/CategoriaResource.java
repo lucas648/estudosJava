@@ -17,27 +17,20 @@ import com.lucascosta.cursomc.servicies.CategoriaService;
 @RequestMapping(value="/categorias")
 public class CategoriaResource {
 	
-	//acessa o serviço 
+	/*
+	 * acessa o serviço 
+	 */
 	@Autowired
 	private CategoriaService service;
 	
-	//e pede que ele busque a categoria por ID
+	/*
+	 * e pede que ele busque a categoria por ID
+	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-	
 		Categoria obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);
-		
-		/*instancia dois objetos 'Categoria'
-		Categoria cat1 = new Categoria(1, "informática");
-		Categoria cat2 = new Categoria(2, "Escritório");*/		
-		
-		/*cria uma lista de 'Categoria' como um ArrayList
-		List<Categoria> lista = new ArrayList<>();
-		//adiciona as duas categorias criadas ao array de categorias
-		lista.add(cat1);
-		lista.add(cat2);*/
-		
+
 	}
 
 }

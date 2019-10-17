@@ -7,18 +7,25 @@ import org.springframework.stereotype.Service;
 
 import com.lucascosta.cursomc.domain.Categoria;
 import com.lucascosta.cursomc.repositories.CategoriaRepository;
+import com.lucascosta.cursomc.servicies.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
 	
-	//instancia uma dependencia automaticamente 
+	/*
+	 * instancia uma dependencia automaticamente 
+	 */
 	@Autowired
 	private CategoriaRepository repo;
 	
-	//busca um objeto por ID e retorna ele como objeto 
+	/*
+	 * busca um objeto por ID e retorna ele como objeto 
+	 * se o ID passado não for encontrado, roda uma exeção com a menssagem passada 
+	 */
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);  
-		return obj.orElse(null); 
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 
 }
