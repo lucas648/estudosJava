@@ -10,10 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.lucascosta.cursomc.domain.Categoria;
 import com.lucascosta.cursomc.domain.Cidade;
+import com.lucascosta.cursomc.domain.Cliente;
+import com.lucascosta.cursomc.domain.Endereco;
 import com.lucascosta.cursomc.domain.Estado;
 import com.lucascosta.cursomc.domain.Produto;
+import com.lucascosta.cursomc.domain.enums.TipoCliente;
 import com.lucascosta.cursomc.repositories.CategoriaRepository;
 import com.lucascosta.cursomc.repositories.CidadeRepository;
+import com.lucascosta.cursomc.repositories.ClienteRepository;
+import com.lucascosta.cursomc.repositories.EnderecoRepository;
 import com.lucascosta.cursomc.repositories.EstadoRepository;
 import com.lucascosta.cursomc.repositories.ProdutoRepository;
 
@@ -31,6 +36,10 @@ public class CursomcApplication implements CommandLineRunner {
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -85,7 +94,17 @@ public class CursomcApplication implements CommandLineRunner {
 		 */
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(cid1, cid2,cid3));
-      		
+		
+		Cliente cli1 = new Cliente(null, "Maria Dos Anjos", "Maria.anjos@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+      	cli1.getTelefones().addAll(Arrays.asList("35648975","985625478"));
+      	
+      	Endereco e1 = new Endereco(null, "Rua das Margaridas", "154","rua da padaria", "Jardim Das Pedras", "15426599", cli1, cid1);
+      	Endereco e2 = new Endereco(null, "Av Presidente Vargas", "784"," ", "Vila Campestre", "1540600", cli1, cid2);
+
+      	cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+      	
+      	clienteRepository.saveAll(Arrays.asList(cli1));
+      	enderecoRepository.saveAll(Arrays.asList(e1,e2));
 	}
 
 }
