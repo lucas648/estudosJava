@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lucascosta.cursomc.domain.enums.TipoCliente;
 
 @Entity
@@ -39,12 +38,11 @@ public class Cliente implements Serializable {
 	 * o que não permite que se repitam, e as anotações 'ElementCollection' e 'CollectionTable'
 	 * criam uma tabela como entidade fraca no BD
 	 */
-	@JsonManagedReference
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	

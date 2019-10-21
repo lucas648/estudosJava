@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -37,7 +36,7 @@ public class Produto implements Serializable {
 	 * as chaves estrangeiras 'joinColumns' é a chave da classe em que se está sendo declarado e 'inverseJoinColumns'
 	 * a da classe que se tem ligação
 	 */
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CAT",
 	    joinColumns = @JoinColumn (name = "produto_id"),
