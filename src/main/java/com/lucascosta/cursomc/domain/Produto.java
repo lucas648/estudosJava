@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable {
@@ -44,6 +45,7 @@ public class Produto implements Serializable {
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
@@ -62,6 +64,7 @@ public class Produto implements Serializable {
 	 * para que um pedido conheça os itens de seu pedido, é criada uma lista de pedidos que 
 	 * varre todos os itens do pedido e devolve uma lista de itens ou seja produtos
 	 */
+	@JsonIgnore
 	public List<Pedido> getpedidos(){
 		List<Pedido> lista = new ArrayList<>();
 		for(ItemPedido x : itens) {
