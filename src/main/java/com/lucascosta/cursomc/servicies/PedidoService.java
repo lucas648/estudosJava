@@ -22,7 +22,7 @@ public class PedidoService {
 	 * busca um objeto por ID e retorna ele como objeto 
 	 * se o ID passado não for encontrado, roda uma exeção com a menssagem passada 
 	 */
-	public Pedido buscar(Integer id) {
+	public Pedido find(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);  
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));

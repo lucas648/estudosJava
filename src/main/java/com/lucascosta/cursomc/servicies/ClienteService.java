@@ -22,7 +22,7 @@ public class ClienteService {
 	 * busca um objeto por ID e retorna ele como objeto 
 	 * se o ID passado não for encontrado, roda uma exeção com a menssagem passada 
 	 */
-	public Cliente buscar(Integer id) {
+	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);  
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));

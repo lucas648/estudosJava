@@ -22,7 +22,7 @@ public class CategoriaService {
 	 * busca um objeto por ID e retorna ele como objeto 
 	 * se o ID passado não for encontrado, roda uma exeção com a menssagem passada 
 	 */
-	public Categoria buscar(Integer id) {
+	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);  
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
@@ -35,6 +35,15 @@ public class CategoriaService {
 		obj.setId(null);
 		return repo.save(obj);
 				
+	}
+	
+	/*
+	 * mêtodo para atualizar uma Categoria no BD, que verifica se o ID passado é igual ao 
+	 * que está inserido no BD
+	 */
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
+		return repo.save(obj);
 	}
 	
 }
