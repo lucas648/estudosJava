@@ -1,6 +1,8 @@
 package com.lucascosta.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucascosta.cursomc.domain.Categoria;
+import com.lucascosta.cursomc.dto.CategoriaDTO;
 import com.lucascosta.cursomc.servicies.CategoriaService;
 
 @RestController
@@ -59,4 +62,14 @@ public class CategoriaResource {
     	return ResponseEntity.noContent().build();
     }
 
+	/*
+	 * para que ao fazer a requisição de todas as categorias não venha os produtos de cada categoria
+	 * criasse um CategoriaDTO(DATA TRANSFERENCE OBJECT) PARA QUE ELE SEJA PASSADO NA LISTA DE CATEGORIAS
+	 */
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll(){
+		List<Categoria> obj = service.findAll();
+		List<CategoriaDTO> listDto = obj.stream().map(ob -> new CategoriaDTO(ob)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
 }
