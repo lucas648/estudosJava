@@ -39,8 +39,9 @@ public class CategoriaService {
 	 * método para a inserção de Categorias no BD
 	 */
 	public Categoria insert(Categoria obj) {
-		obj.setId(null);
-		return repo.save(obj);
+		Categoria newOBJ = find(obj.getId());
+		updateData(newOBJ,obj);
+		return repo.save(newOBJ);
 				
 	}
 	
@@ -81,5 +82,9 @@ public class CategoriaService {
 	 */
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
+	
+	private void updateData(Categoria newOBJ, Categoria obj) {
+		newOBJ.setNome(obj.getNome());
 	}
 }
