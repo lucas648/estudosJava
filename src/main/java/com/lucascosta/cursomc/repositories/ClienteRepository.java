@@ -1,7 +1,10 @@
 package com.lucascosta.cursomc.repositories;
 
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lucascosta.cursomc.domain.Cliente;
 
@@ -13,5 +16,6 @@ import com.lucascosta.cursomc.domain.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
-	
+	@Transactional(readOnly=true)
+	Cliente findByEmail(String email);
 }
